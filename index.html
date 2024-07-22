@@ -20,8 +20,8 @@
             background-color: rgb(193, 159, 226);
             border-radius: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color:aliceblue;
-            border: 3px grey;
+            color: aliceblue;
+            border: 3px solid grey;
             padding-left: 5%;
             padding-top: 2%;
             padding-bottom: 2%;
@@ -38,7 +38,7 @@
         <p id="monthsOutput"></p>
     </div>
     <div class="calendar4ik">
-      <h2>Мы считали мы считали, наши кнопочки устали.</h2>
+      <h2>Мы считали, мы считали, наши кнопочки устали.</h2>
       <div>
         <label for="oper1">Введите первое число</label>
         <input id="oper1" type="number" value="0" onchange="calc()">
@@ -69,11 +69,11 @@
             months -= inputDate.getMonth();
             months += currentDate.getMonth();
 
-            document.getElementById('monthsOutput').innerText = Количество месяцев: ${months};
+            document.getElementById('monthsOutput').innerText = `Количество месяцев: ${months}`;
         }
         function calc() {
-            let x = parseInt(document.getElementById("oper1").value);
-            let y = parseInt(document.getElementById("oper2").value);
+            let x = parseFloat(document.getElementById("oper1").value);
+            let y = parseFloat(document.getElementById("oper2").value);
             let result = 0;
             let operation = document.getElementById("operation").value;
             switch (operation) {
@@ -87,7 +87,7 @@
                     result = x * y;
                     break;
                 case "Разделить":
-                    result = x / y;
+                    result = y !== 0 ? (x / y) : 'Ошибка: деление на 0';
                     break;
                 case "Степень":
                     result = Math.pow(x, y);
@@ -99,7 +99,7 @@
                     result = "Error!";
                     break;
             }
-            if (result % 1 != 0) {
+            if (typeof result === 'number' && result % 1 !== 0) {
                 result = result.toFixed(2);
             }
             document.getElementById('res').innerText = result;
