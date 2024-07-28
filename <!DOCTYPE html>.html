@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задания JS</title>
+    <style>
+        div {
+            margin-top: 20px;
+        }
+        span[id="res"] {
+            color: rgb(21, 140, 145);
+            font-size: 2rem;
+        }
+        .calendar4ik {
+            margin-right: 30%;
+            margin-left: 30%;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            background-color: rgb(193, 159, 226);
+            border-radius: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: aliceblue;
+            border: 3px solid grey;
+            padding-left: 5%;
+            padding-top: 2%;
+            padding-bottom: 2%;
+            padding-right: 5%;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar4ik">
+        <h2>Расчет количества месяцев без рыбалки((</h2>
+        <label for="dateInput">Выберите дату: </label>
+        <input type="date" id="dateInput">
+        <button onclick="calculateMonths()">Рассчитать</button>
+        <p id="monthsOutput"></p>
+    </div>
+    <div class="calendar4ik">
+      <h2>Мы считали, мы считали, наши кнопочки устали.</h2>
+      <div>
+        <label for="oper1">Введите первое число</label>
+        <input id="oper1" type="number" value="0" onchange="calc()">
+      </div>
+      <div>
+        <label for="oper2">Введите второе число</label>
+        <input id="oper2" type="number" value="0" onchange="calc()">
+      </div>
+      <div>
+        <select id="operation" onchange="calc()">
+            <option>Сложить</option>
+            <option>Вычесть</option>
+            <option>Умножить</option>
+            <option>Разделить</option>
+            <option>Степень</option>
+            <option>Квадратный корень</option>
+        </select>
+      </div>
+      <p>Результат:<span id="res"></span></p>
+    </div>
+    <script>
+        function calculateMonths() {
+            const inputDate = new Date(document.getElementById('dateInput').value);
+            const currentDate = new Date();
+
+            let months;
+            months = (currentDate.getFullYear() - inputDate.getFullYear()) * 12;
+            months -= inputDate.getMonth();
+            months += currentDate.getMonth();
+
+            document.getElementById('monthsOutput').innerText = `Количество месяцев: ${months}`;
+        }
+        function calc() {
+            let x = parseFloat(document.getElementById("oper1").value);
+            let y = parseFloat(document.getElementById("oper2").value);
+            let result = 0;
+            let operation = document.getElementById("operation").value;
+            switch (operation) {
+                case "Сложить":
+                    result = x + y;
+                    break;
+                case "Вычесть":
+                    result = x - y;
+                    break;
+                case "Умножить":
+                    result = x * y;
+                    break;
+                case "Разделить":
+                    result = y !== 0 ? (x / y) : 'Ошибка: деление на 0';
+                    break;
+                case "Степень":
+                    result = Math.pow(x, y);
+                    break;
+                case "Квадратный корень":
+                    result = Math.sqrt(x);
+                    break;
+                default:
+                    result = "Error!";
+                    break;
+            }
+            if (typeof result === 'number' && result % 1 !== 0) {
+                result = result.toFixed(2);
+            }
+            document.getElementById('res').innerText = result;
+        }
+    </script>
+</body>
+</html>
